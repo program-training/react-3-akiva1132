@@ -1,30 +1,33 @@
-import { useState, useEffect } from "react";
-import "./UsersFromServer.css";
-import { Card } from "../Card/UserCard"
-interface User {
-  "id": number
-  "name": string
-  "username": string
-  "email": string
-  "address": object,
-  "phone": string
-  "website": string
-  "company": object
-}
-export function Timer() {
-  const [items, setItems] = useState<User[]>([]);
-  useEffect(() => {
-    const fetchItems = async () => {
-      const data = await fetch("https://jsonplaceholder.typicode.com/users")
-      const result = await data.json()
-      setItems(result)
-    }
-    fetchItems()
-  }, [])
-  return (
-    <div className="example">
-      {items.map(item => <Card key={item.id} name={item.name} email={item.email} id={item.id} />)}
-    </div>
+import { useState, useEffect, FormEvent, useRef } from "react";
+import "./Timer.css";
 
+export function Timer() {
+  const [flag, setFlag] = useState<boolean>(false);
+  const [num, setNum] = useState<number>(0);
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setFlag(true)
+    counter(num)
+  };
+  const counter = (n: number) => {
+    if (n === 0) { return setFlag(false) }
+    setTimeout(() => {
+      setNum(() => num - 1)
+    }, 1000);
+  }
+  useEffect(() => {
+    if (flag === true) { counter(num) }
+  }, [num]);
+  return (
+    <div id="TimerDiv">
+      <div id="countr">{flag ? num : null}</div>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={num}
+          onChange={(e) => setNum(Number(e.target.value))}
+          id="input" type="number" placeholder="enter secends" />
+        <button >ok</button>
+      </form>
+    </div>
   )
 }

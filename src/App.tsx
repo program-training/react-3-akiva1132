@@ -1,11 +1,11 @@
 import "./App.css";
-import { UsersFromServer } from "./components/UsersFromServer/UsersFromServer";
 // import { UsersFromServer } from "./components/UsersFromServer/UsersFromServer";
+import { Timer } from "./components/Timer/Timer";
 function App() {
   return (
     <>
-      <UsersFromServer />{" "}
+      <Timer />{" "}
     </>
-  );
+  )
 }
 export default App;
