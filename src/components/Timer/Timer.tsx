@@ -11,7 +11,7 @@ interface User {
   "website": string
   "company": object
 }
-export function UsersFromServer() {
+export function Timer() {
   const [items, setItems] = useState<User[]>([]);
   useEffect(() => {
     const fetchItems = async () => {
@@ -22,7 +22,7 @@ export function UsersFromServer() {
     fetchItems()
   }, [])
   return (
-    <div className="AllCards">
+    <div className="example">
       {items.map(item => <Card key={item.id} name={item.name} email={item.email} id={item.id} />)}
     </div>
 
